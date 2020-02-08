@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .ltextbox {
+            margin-top: 30px;
+            height: 50px;
+            outline: none;
+        }
+        
+        .nav-tabs>li {
+            height: 40px;
+        }
+        
+        .nav-tabs>li>a {
+            height: 40px;
+            margin-right: 2px;
+            line-height: 1.42857143;
+            border: 1px solid transparent;
+            border-radius: 0;
+        }
+        
+        .nav-tabs>li.active>a,
+        .nav-tabs>li.active>a:focus,
+        .nav-tabs>li.active>a:hover {
+            height: 40px;
+            color: #555;
+            cursor: default;
+            background-color: #fff;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="111" class="logindesk" style="height:100%;width:100%;">
+        <div class="logintop" style="height:6px;background-color:rgb(28, 134, 255);"></div>
+        <div class="logintitle" style="height:40px;border-bottom: rgb(151, 151, 151, .2) solid 1px;border-top: rgb(151, 151, 151, .2) solid 1px;">
+            <span style="float:left;margin-top:10px;margin-left:10px;font-size:16px;">登录</span>
+            <span class="glyphicon glyphicon-remove" id="close" style="cursor:pointer;color:black;float:right;margin-top:10px;margin-right:10px;font-size:16px;"></span>
+            <div id="myTabContent" class="tab-content" style="border: 0;">
+                <form id="loginform" style="width:90%;margin:auto;padding:20px;padding:70px;">
+                    <input class="ltextbox col-md-12 col-sm-12 col-xs-12" id="logn" name="logn" type="text" placeholder="请输入账号">
+                    <input class="ltextbox col-md-12 col-sm-12 col-xs-12" id="pswd" name="pswd" type="password" placeholder="请输入密码">
+                    <div id="login-sms-code-err" style="color:red;height:20px;width:100%;"></div>
+                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
+                    <button class="lbutton2 col-md-8 col-sm-8 col-xs-8" disabled="disabled" id="loginsubmit" type="button" value="提交">提交</button>
+                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

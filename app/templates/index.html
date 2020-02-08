@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block title %}
+<title>课程管理系统</title>{% endblock title %} {% block navbar %} {% endblock navbar %} {% block content %}
+<div class="container1">
+    <div class="headtext">
+        <h2 class="word"><strong>课程管理系统</strong></h2>
+    </div>
+    <div class="headlist">
+        <ul class="mynav">
+            <a href="/option">
+                <li class="active" data-toggle="collapse" data-target="#demo">我要选课</li>
+            </a>
+            <a href="/query">
+                <li>成绩查询</li>
+            </a>
+            <a href="/mycourse">
+                <li>我的课表</li>
+            </a>
+            <!-- {% if session['userphone'] %}
+            <a href="/usercenter">
+                <li style="background-image: none;">我的课表</li>
+            </a> {% endif %}{% if not session['userphone'] %}
+
+            <li style="background-image: none;cursor:pointer;" onclick="ajaxload() ">我的课表</li>
+
+            {% endif %} -->
+
+        </ul>
+    </div>
+</div>
+{% endblock content %}
