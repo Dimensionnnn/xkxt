@@ -6,6 +6,7 @@
     </div>
     <div class="headlist">
         <ul class="mynav">
+            {% if session['sno'] %}
             <a href="/option">
                 <li class="active" data-toggle="collapse" data-target="#demo">我要选课</li>
             </a>
@@ -14,7 +15,11 @@
             </a>
             <a href="/mycourse">
                 <li>我的课表</li>
-            </a>
+            </a> {% endif %}{% if not session['sno'] %}
+            <li class="active" style="background-image: none;cursor:pointer;" data-toggle="collapse" data-target="#demo" onclick="ajaxload()">我要选课</li>
+            <li style="background-image: none;cursor:pointer;" onclick="ajaxload()">成绩查询</li>
+            <li style="background-image: none;cursor:pointer;" onclick="ajaxload()">我的课表</li>
+            {% endif %}
             <!-- {% if session['userphone'] %}
             <a href="/usercenter">
                 <li style="background-image: none;">我的课表</li>

@@ -5,9 +5,7 @@
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <script src="/js/myactive.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" /> {% block title %} {% endblock title %}
     <style>
@@ -85,10 +83,10 @@
 
             </div>
             <div style="float:right;margin-right:50px;height:100%;">
-                {% if session['userphone'] %}
+                {% if session['sno'] %}
                 <div class="headuser">
-                    欢迎 {{session['userphone']}} <a href='/usercenter'>个人中心<span class="glyphicon glyphicon-chevron-right"></span></a>
-                </div> {% endif %}{% if not session['userphone'] %}
+                    欢迎 {{session['sname']}} 同学
+                </div> {% endif %}{% if not session['sno'] %}
                 <div class="headlogin " onclick="ajaxload() ">
                     用户登录
                 </div>
