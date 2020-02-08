@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, make_response, url_for, redirect, render_template, session, Session
+from flask import Flask, jsonify, request, make_response, url_for, redirect, render_template, session
 import datetime
 import pymysql
 
@@ -49,13 +49,28 @@ def login_in():                                         # 用户输入信息登�
 def option():
     return render_template("option.html")
 
+
 @app.route("/mycourse")
 def mycourse():
     return render_template("mycourse.html")
 
+
 @app.route("/query")
 def query():
     return render_template("query.html")
+
+
+@app.route("/inputGrade")
+def inputGrade():
+    return render_template("inputGrade.html")
+
+
+@app.route("/logout")
+def logout():
+    del session['sno']
+    del session['sname']
+    return redirect('/index')
+
 
 def conn2mysql():
     conn = pymysql.connect(host="cdb-518aglpe.bj.tencentcdb.com", port=10101, user="root", password="zyx1999zyx",
@@ -64,6 +79,5 @@ def conn2mysql():
     return conn, cursor
 
 
-
-if __name__ == '__main__':   
+if __name__ == '__main__':
     app.run(debug = True, host= '0.0.0.0')

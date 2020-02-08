@@ -173,7 +173,6 @@ a:focus {
     color: rgb(0, 0, 0);
     font-size: 18px;
 }
-
 .headlogin:hover {
     color: rgb(28, 134, 255);
 }
@@ -191,7 +190,6 @@ a:focus {
     color: rgb(0, 0, 0);
     font-size: 18px;
 }
-
 .flexbox {
     position: fixed;
     z-index: 9999;

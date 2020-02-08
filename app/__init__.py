@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, make_response, url_for, redirect, render_template, session, Session
+from flask import Flask, jsonify, request, make_response, url_for, redirect, render_template, session
 from flask_httpauth import HTTPBasicAuth
 import datetime
 import json, urllib
