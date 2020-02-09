@@ -55,6 +55,16 @@ def mycourse():
 def query():
     json_data = request.json  # 获取数据
     sno = json_data.get("sno")
+    try:
+        with DB() as db:
+            sql = 'SELECT cno, grade FROM sc WHERE sno = "%s"' % sno
+            db.execute(sql)
+            data = db.fetchall()
+
+        return render_template("grade.html", data=data)
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok', errmsg="用户数据读取失败")
     return render_template("query.html")
 
 
@@ -72,7 +82,7 @@ def grade():
             sql = 'SELECT sno, grade FROM sc WHERE cno = "%s"' % cno
             db.execute(sql)
             data = db.fetchall()
-            print(data)
+        return render_template("grade.html", data=data)
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")

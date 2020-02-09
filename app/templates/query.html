@@ -1,19 +1,21 @@
 {% block title %}
-<title>成绩查询</title>{% endblock title %} {% extends 'base.html' %} {% block content %}
+    <title>成绩查询</title>{% endblock title %} {% extends 'base.html' %} {% block content %}
     <div class="maincontent" style="background-color:rgb(240, 240, 240);height:83%;">
         <div class="content" id="home">
             <div class="panel panel-default">
-                <div class="panel-heading">Panel heading</div>
-
+                <div class="panel-heading">
+                </div>
                 <!-- Table -->
                 <table class="table">
-                    <ul class="list-group">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi sleo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
+                    <tr>
+                        <th>已选课程</th>
+                        <th>成绩</th>
+                    </tr>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{ i[0] }}</td>
+                        <td>{{ i[1] }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
