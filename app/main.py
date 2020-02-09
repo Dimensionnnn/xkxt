@@ -50,6 +50,10 @@ def option():
 def mycourse():
     return render_template("mycourse.html")
 
+@app.route("/add")
+def add():
+    return render_template("add.html")
+
 
 @app.route("/query")
 def query():
@@ -72,20 +76,20 @@ def inputGrade():
     return render_template("inputGrade.html")
 
 
-@app.route("/grade", methods=["GET", 'POST'])
+@app.route("/grade")
 def grade():
-    json_data = request.json  # 获取数据
+    json_data = request.form  # 获取数据
     cno = json_data.get("cno")  # 按课程号查询所有选课学生成绩
     try:
         with DB() as db:
-            sql = 'SELECT course.cname,sc.sno, sc.grade FROM sc,course WHERE course.cno=sc.cno = "%s"' % cno
+            sql = 'SELECT DISTINCT student.sname,sc.sno, sc.grade FROM sc,student,course WHERE student.sno=sc.sno and course.cno=sc.cno = "%s"' % cno
             db.execute(sql)
             data = db.fetchall()
+            print(data)
         return render_template("grade.html", data=data)
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
-
     return render_template("grade.html")
 
 
