@@ -53,11 +53,12 @@ def mycourse():
 
 @app.route("/query")
 def query():
-    json_data = request.json  # 获取数据
-    sno = json_data.get("sno")
+    # 查询个人课程成绩
+    sno = session['sno']
     try:
         with DB() as db:
-            sql = 'SELECT cno, grade FROM sc WHERE sno = "%s"' % sno
+            sql = 'SELECT course.cname, sc.cno,sc.grade FROM sc,course WHERE sc.cno = course.cno and sno = "%s"' % \
+                  session['sno']
             db.execute(sql)
             data = db.fetchall()
 
@@ -79,7 +80,7 @@ def grade():
     cno = json_data.get("cno")  # 按课程号查询所有选课学生成绩
     try:
         with DB() as db:
-            sql = 'SELECT sno, grade FROM sc WHERE cno = "%s"' % cno
+            sql = 'SELECT course.cname,sc.sno, sc.grade FROM sc,course WHERE course.cno=sc.cno = "%s"' % cno
             db.execute(sql)
             data = db.fetchall()
         return render_template("grade.html", data=data)
