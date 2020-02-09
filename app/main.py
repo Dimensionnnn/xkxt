@@ -25,7 +25,6 @@ def login_in():                                         # 用户输入信息登�
         with DB() as db:
             sql = 'SELECT sno, sname, pswd FROM student WHERE logn = "%s"' % logn
             db.execute(sql)
-
         data = db.fetchone()
         if data:
             if pswd == data[2]:
@@ -67,9 +66,17 @@ def inputGrade():
 @app.route("/grade", methods=["GET", 'POST'])
 def grade():
     json_data = request.json  # 获取数据
-    cno = json_data.get("cno")
-    cnames = []
-    grades = []
+    cno = json_data.get("cno")  # 按课程号查询所有选课学生成绩
+    try:
+        with DB() as db:
+            sql = 'SELECT sno, grade FROM sc WHERE cno = "%s"' % cno
+            db.execute(sql)
+            data = db.fetchall()
+            print(data)
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok', errmsg="用户数据读取失败")
+
     return render_template("grade.html")
 
 
