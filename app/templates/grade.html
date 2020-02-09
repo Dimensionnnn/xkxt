@@ -9,20 +9,20 @@
                         style="float:left;width:8.33333%">提交
                 </button>
             </form>
-        <table class="table">
-            <tr>
-                <th>已选学生姓名</th>
-                <th>学号</th>
-                <th>成绩</th>
-            </tr>
-            {% for i in data %}
+            <table class="table">
                 <tr>
-                    <td>{{ i[0] }}</td>
-                    <td>{{ i[1] }}</td>
-                    <td>{{ i[2] }}</td>
+                    <th>已选学生姓名</th>
+                    <th>学号</th>
+                    <th>成绩</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for i in data %}
+                    <tr>
+                        <td>{{ i[0] }}</td>
+                        <td>{{ i[1] }}</td>
+                        <td><input type="text" name="grade" value="{{ i[2] }}"></td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 {% endblock content %}
