@@ -22,14 +22,11 @@ def login_in():                                         # 用户输入信息登�
     logn = json_data.get("logn")
     pswd = json_data.get("pswd")
     try:
-        conn, cursor = conn2mysql() 
-        sql = 'SELECT sno, sname, pswd FROM student WHERE logn = "%s"'%logn
-        cursor.execute(sql)
+        with DB() as db:
+            sql = 'SELECT sno, sname, pswd FROM student WHERE logn = "%s"' % logn
+            db.execute(sql)
 
-        data = cursor.fetchone()
-        conn.commit()
-        cursor.close()
-        conn.close()
+        data = db.fetchone()
         if data:
             if pswd == data[2]:
                 session['sno'] = data[0]
@@ -57,12 +54,23 @@ def mycourse():
 
 @app.route("/query")
 def query():
+    json_data = request.json  # 获取数据
+    sno = json_data.get("sno")
     return render_template("query.html")
 
 
 @app.route("/inputGrade")
 def inputGrade():
     return render_template("inputGrade.html")
+
+
+@app.route("/grade", methods=["GET", 'POST'])
+def grade():
+    json_data = request.json  # 获取数据
+    cno = json_data.get("cno")
+    cnames = []
+    grades = []
+    return render_template("grade.html")
 
 
 @app.route("/logout")
@@ -72,12 +80,21 @@ def logout():
     return redirect('/index')
 
 
-def conn2mysql():
-    conn = pymysql.connect(host="cdb-518aglpe.bj.tencentcdb.com", port=10101, user="root", password="zyx1999zyx",
-                           database="xkxt")
-    cursor = conn.cursor()
-    return conn, cursor
+class DB(object):
+    def __init__(self):
+        self.conn = pymysql.connect(host="cdb-518aglpe.bj.tencentcdb.com", port=10101, user="root",
+                                    password="zyx1999zyx",
+                                    database="xkxt")
+        self.cursor = self.conn.cursor()
+        # self.num = self.cos.execute()
 
+    def __enter__(self):
+        return self.cursor
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.conn.commit()
+        self.conn.close()
+        self.cursor.close()
 
 if __name__ == '__main__':
     app.run(debug = True, host= '0.0.0.0')

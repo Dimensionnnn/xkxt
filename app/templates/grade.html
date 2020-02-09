@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script src="echarts.min.js"></script>
-    <title>Title</title>
-</head>
-<body>
-
-<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-<div id="main" style="width: 600px;height:400px;"></div>
-
-
-</body>
-</html>
+{% block title %}
+    <title>成绩查询</title>{% endblock title %} {% extends 'base.html' %} {% block content %}
+    <div class="maincontent" style="background-color:rgb(240, 240, 240);height:83%;">
+        <div class="content" id="home">
+        </div>
+    </div>
+{% endblock content %}
