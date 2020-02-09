@@ -54,7 +54,6 @@ def mycourse():
 @app.route("/query")
 def query():
     # 查询个人课程成绩
-
     try:
         with DB() as db:
             sql = 'SELECT course.cname,sc.grade FROM sc,course WHERE sc.cno = course.cno and sno = "%s"' % \
@@ -65,7 +64,6 @@ def query():
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
-    return render_template("query.html")
 
 
 @app.route("/inputGrade")
