@@ -57,7 +57,7 @@ def query():
     sno = session['sno']
     try:
         with DB() as db:
-            sql = 'SELECT course.cname, sc.cno,sc.grade FROM sc,course WHERE sc.cno = course.cno and sno = "%s"' % \
+            sql = 'SELECT course.cname,sc.grade FROM sc,course WHERE sc.cno = course.cno and sno = "%s"' % \
                   session['sno']
             db.execute(sql)
             data = db.fetchall()
