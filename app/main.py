@@ -76,17 +76,21 @@ def inputGrade():
     return render_template("inputGrade.html")
 
 
-@app.route("/grade")
+@app.route("/grade", methods=["POST"])
 def grade():
     json_data = request.form  # 获取数据
     cno = json_data.get("cno")  # 按课程号查询所有选课学生成绩
+    print(cno)
     try:
         with DB() as db:
-            sql = 'SELECT DISTINCT student.sname,sc.sno, sc.grade FROM sc,student,course WHERE student.sno=sc.sno and course.cno=sc.cno = "%s"' % cno
-            db.execute(sql)
-            data = db.fetchall()
-            print(data)
-        return render_template("grade.html", data=data)
+            if cno:
+                sql = 'SELECT DISTINCT student.sname,sc.sno, sc.grade FROM sc,student,course WHERE student.sno=sc.sno and course.cno=sc.cno = "%s"' % cno
+                db.execute(sql)
+                data = db.fetchall()
+                print(data)
+                return render_template("grade.html", data=data)
+            else:
+                return render_template("grade.html")
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
