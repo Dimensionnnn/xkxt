@@ -60,6 +60,7 @@ def query():
                   session['sno']
             db.execute(sql)
             data = db.fetchall()
+            print(data)
         return render_template("query.html", data=data)
     except Exception as e:
         print(e)
