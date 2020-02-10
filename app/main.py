@@ -28,11 +28,7 @@ def login_in():                                         # 用户输入信息登�
         data = db.fetchone()
         if data:
             if pswd == data[2]:
-                session['sno'] = data[0]
-                session['sname'] = data[1]
-                session.permanent = True
-                app.permanent_session_lifetime = datetime.timedelta(minutes=10)
-                return jsonify(errno='ok', errmsg="登录成功")
+                return jsonify(errno='ok', errmsg="登录成功", sno=data[0], sname=data[1])
             else:
                 return jsonify(errno='notok', errmsg="用户名或密码错误")
         else:
@@ -41,10 +37,20 @@ def login_in():                                         # 用户输入信息登�
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
 
-@app.route("/option")
+@app.route("/option", methods=['GET', 'POST'])
 def option():
-    return render_template("option.html")
-
+    json_data = request.json                            # 获取数据
+    a = json_data.get('logn')
+    try:
+        with DB() as db:
+            sql = 'SELECT * FROM course'
+            db.execute(sql)
+            data = db.fetchall()
+            print(data)
+            return jsonify(errno='ok', errmsg="获取成功", data=data)
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok', errmsg="用户数据读取失败")
 
 @app.route("/mycourse")
 def mycourse():
@@ -122,4 +128,4 @@ class DB(object):
         self.cursor.close()
 
 if __name__ == '__main__':
-    app.run(debug = True, host= '0.0.0.0')
+    app.run(debug = True, host= '0.0.0.0', port='9000')
