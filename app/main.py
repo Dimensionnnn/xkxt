@@ -41,6 +41,7 @@ def login_in():                                         # 用户输入信息登�
 def option():
     json_data = request.json                            # 获取数据
     a = json_data.get('logn')
+    print(a)
     try:
         with DB() as db:
             sql = 'SELECT * FROM course'
@@ -64,14 +65,24 @@ def add():
 @app.route("/query")
 def query():
     # 查询个人课程成绩
+    json_data = request.json
+    sno = json_data.get('sno')
+    print(sno)
+    cname = []
+    grade = []
+    js = {}
     try:
         with DB() as db:
-            sql = 'SELECT course.cname,sc.grade FROM sc,course WHERE sc.cno = course.cno and sno = "%s"' % \
-                  session['sno']
+            sql = 'SELECT course.cname,sc.grade FROM sc,course WHERE sc.cno = course.cno and sno = "%s"' % sno
             db.execute(sql)
             data = db.fetchall()
-            print(data)
-        return render_template("query.html", data=data)
+            for i in data:
+                cname.append(data[0])
+                grade.append(data[1])
+            # js['cname'] = cname
+            # js['grade'] = grade
+        print(data)
+        return jsonify(data=js)
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
