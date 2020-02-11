@@ -79,7 +79,7 @@
         .then((response) => {
             if (response.data.errno === 'ok') {
               this.da = response.data.data
-              console.log(this.da)
+              console.log(this.da.grade)
             } else {
               this.$message.error({
                 message: '获取失败',
