@@ -79,10 +79,10 @@ def query():
             for i in data:
                 cname.append(data[0])
                 grade.append(data[1])
-            # js['cname'] = cname
-            # js['grade'] = grade
+            js['cname'] = cname
+            js['grade'] = grade
         print(data)
-        return jsonify(data=js)
+        return jsonify(errno='ok', data=data)
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")

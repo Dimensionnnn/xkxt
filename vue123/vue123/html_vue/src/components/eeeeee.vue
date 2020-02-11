@@ -24,6 +24,7 @@
 
   export default {
     data() {
+      d: [];
       return {}
     },
     mounted() {
@@ -39,7 +40,7 @@
         xAxis: [
           {
             type: 'category',
-            data: js.cname,
+            data: ['1', '2'],
             axisTick: {
               alignWithLabel: true
             }
@@ -55,7 +56,7 @@
             name: '成绩',
             type: 'bar',
             barWidth: '60%',
-            data: js.grade
+            data: [33, 22]
           }
         ]
       };
@@ -66,19 +67,38 @@
       });
     },
     methods: {
-      getData() {
-        this.$axios.post('api/query', {
-          'sno': localStorage.getItem('User')
-        }).then((response) => {
-          let js = response.data.data
-          print(js)
-          console.log(response.data)
-        })
-      }
+
     },
     watch: {},
     created() {
 
+      this.$axios.post('/api/query',
+        {
+          // 'sno': localStorage.getItem('User')
+          'sno': "100000"
+        }
+      )
+        .then((response) => {
+            if (response.data.errno === 'ok') {
+              this.d = []
+              let da = response.data.data
+              print(da)
+            } else {
+              this.$message.error({
+                message: '获取失败',
+                showClose: true,
+                type: 'error'
+              })
+            }
+          },
+          (response) => {
+            this.$message.error({
+              message: '获取失败',
+              showClose: true,
+              type: 'error'
+            })
+          }
+        )
     }
   }
 </script>
