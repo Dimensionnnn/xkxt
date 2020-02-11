@@ -40,7 +40,7 @@
       <oooooo></oooooo>
     </div>
     <div v-if="Flag === '2'">
-      222222222222222222222222
+       <eeeeee></eeeeee>
     </div>
     <div v-if="Flag === '3'">
       333333333333333333333333333333
@@ -56,10 +56,12 @@
 </template>
 
 <script>
-import oooooo from './oooooo.vue'
+  import oooooo from './oooooo.vue'
+  import eeeeee from './eeeeee.vue'
 export default {
   name: 'Index',
   components: {
+    eeeeee: eeeeee,
     oooooo: oooooo
   },
   methods: {

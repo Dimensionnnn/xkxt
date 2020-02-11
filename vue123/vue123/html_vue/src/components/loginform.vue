@@ -59,7 +59,6 @@ export default {
               if (response.data.errno === 'ok') {
                 // 设置Vuex登录标志为true，默认userLogin为false
                 this.$store.dispatch('userLogin', true)
-                
                 localStorage.setItem('Flag', 'isLogin')
                 localStorage.setItem('User', response.data.sno)
                 localStorage.setItem('UserName', response.data.sname)
