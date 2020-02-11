@@ -4,6 +4,7 @@
       <div style="text-align: center">
         <el-transfer
           style="text-align: left; display: inline-block"
+          v-loading="loading"
           v-model="value"
           filterable
           filter-placeholder="请输入课号"
@@ -20,7 +21,6 @@
           </el-tooltip>
         </el-transfer>
       </div>
-      <el-button @click="optionsubmit()()">提交选课</el-button>
       </div>
 </template>
 <style>
@@ -40,7 +40,8 @@
       return {
         d: [],
         value: [],
-        len: 0
+        len: 0,
+        loading: true
       }
     },
     created () {
@@ -66,6 +67,7 @@
               })
             }
             this.value = response.data.cho
+            this.loading = false
           } else {
             this.$message.error({
               message: '获取失败',
