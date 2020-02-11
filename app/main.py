@@ -37,17 +37,50 @@ def login_in():                                         # 用户输入信息登�
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
 
-@app.route("/option", methods=['GET', 'POST'])
+@app.route("/getallcourse", methods=['GET', 'POST'])
 def option():
     json_data = request.json                            # 获取数据
-    a = json_data.get('logn')
+    sno = json_data.get('sno')
     try:
         with DB() as db:
             sql = 'SELECT * FROM course'
             db.execute(sql)
             data = db.fetchall()
-            print(data)
-            return jsonify(errno='ok', errmsg="获取成功", data=data)
+            sql = 'SELECT cno FROM sc WHERE sno = "%s"'%sno
+            db.execute(sql)
+            sc = db.fetchall()
+            chosed = []
+            for i in sc:
+                chosed.append(int(i[0])-1)
+            res = chose1(len(data), chosed)
+            return jsonify(errno='ok', errmsg="获取成功", data=data, cho = res)
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok', errmsg="用户数据读取失败")
+def chose1(n, l):
+    res = []
+    for i in range(n):
+        if i not in l:
+            res.append(i)
+    return res
+
+@app.route("/optioncourse", methods=['GET', 'POST'])
+def optioncourse():
+    json_data = request.json                            # 获取数据
+    direction = json_data.get('direction')
+    keys = json_data.get('keys')
+    sno = json_data.get('sno')
+    try:
+        with DB() as db:
+            if direction == 'left':
+                for i in keys:
+                    sql = 'INSERT INTO sc(sno, cno) VALUES("%s", "%02d")'%(sno, i+1)
+                    db.execute(sql)
+            else:
+                for i in keys:
+                    sql = 'DELETE FROM sc WHERE sno = "%s" and cno = "%02d"'%(sno, i+1)
+                    db.execute(sql)
+            return jsonify(errno='ok', errmsg="选课成功")
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")

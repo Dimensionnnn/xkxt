@@ -120,13 +120,13 @@ export default {
   }
   .tac {
     float: left;
-    width: 400px;
+    width: 300px;
   }
   .tac span {
     font-size:20px;
   }
   .content {
     float: left;
-    width:700px;
+    width: 800px;
   }
 </style>
