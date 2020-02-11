@@ -24,8 +24,9 @@
 
   export default {
     data() {
-      d: [];
-      return {}
+      return {
+        da: {}
+      }
     },
     mounted() {
       let myChart = echarts.init(document.getElementById('chart_example'));
@@ -40,7 +41,7 @@
         xAxis: [
           {
             type: 'category',
-            data: ['1', '2'],
+            data: this.da.cname,
             axisTick: {
               alignWithLabel: true
             }
@@ -56,12 +57,11 @@
             name: '成绩',
             type: 'bar',
             barWidth: '60%',
-            data: [33, 22]
+            data: this.da.grade
           }
         ]
       };
       myChart.setOption(option);
-      //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
       window.addEventListener('resize', function () {
         myChart.resize()
       });
@@ -71,18 +71,15 @@
     },
     watch: {},
     created() {
-
       this.$axios.post('/api/query',
         {
-          // 'sno': localStorage.getItem('User')
-          'sno': "100000"
+          'sno': localStorage.getItem('User')
         }
       )
         .then((response) => {
             if (response.data.errno === 'ok') {
-              this.d = []
-              let da = response.data.data
-              print(da)
+              this.da = response.data.data
+              console.log(this.da)
             } else {
               this.$message.error({
                 message: '获取失败',

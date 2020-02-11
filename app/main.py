@@ -62,7 +62,7 @@ def add():
     return render_template("add.html")
 
 
-@app.route("/query")
+@app.route("/query", methods=['POST'])
 def query():
     # 查询个人课程成绩
     json_data = request.json
@@ -77,12 +77,12 @@ def query():
             db.execute(sql)
             data = db.fetchall()
             for i in data:
-                cname.append(data[0])
-                grade.append(data[1])
+                cname.append(i[0])
+                grade.append(i[1])
             js['cname'] = cname
             js['grade'] = grade
-        print(data)
-        return jsonify(errno='ok', data=data)
+        print(js)
+        return jsonify(errno='ok', data=js)
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
