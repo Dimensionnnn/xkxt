@@ -46,10 +46,10 @@
       333333333333333333333333333333
     </div>
     <div v-if="Flag === '4'">
-      444444444444444444444
+      <adcourse></adcourse>
     </div>
     <div v-if="Flag === '5'">
-      555555555555555555555555555555555
+      <adstu></adstu>
     </div>
   </div>
 </div>
@@ -58,14 +58,19 @@
 <script>
   import oooooo from './oooooo.vue'
   import eeeeee from './eeeeee.vue'
-export default {
-  name: 'Index',
-  components: {
-    eeeeee: eeeeee,
-    oooooo: oooooo
-  },
-  methods: {
-    handleSelect(key, keyPath) {
+  import adstu from "./adstu.vue";
+  import adcourse from "./adcourse";
+
+  export default {
+    name: 'Index',
+    components: {
+      eeeeee: eeeeee,
+      oooooo: oooooo,
+      adstu: adstu,
+      adcourse: adcourse
+    },
+    methods: {
+      handleSelect(key, keyPath) {
       this.Flag = key
     },
     chooseModule (moduleName) {

@@ -54,14 +54,17 @@
                     type: 'shadow'
                   }
                 },
-                xAxis: [
-                  {
-                    type: 'category',
-                    data: this.da.cname,
-                    axisTick: {
-                      alignWithLabel: true
-                    }
-                  }
+            xAxis: [
+              {
+                type: 'category',
+                data: this.da.cname,
+                axisTick: {
+                  alignWithLabel: true
+                },
+                axisLabel: {
+                  interval: 0
+                }
+              }
                 ],
                 yAxis: [
                   {

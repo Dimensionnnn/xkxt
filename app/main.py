@@ -16,6 +16,8 @@ def main():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+
 @app.route('/login/in', methods=['GET', 'POST'])    
 def login_in():                                         # 用户输入信息登录
     json_data = request.json                            # 获取数据
@@ -127,9 +129,45 @@ def inputGrade():
     return render_template("inputGrade.html")
 
 
+@app.route("/adstu", methods=['POST'])
+def adstu():
+    js = []
+    try:
+        with DB() as db:
+            sql = 'SELECT sno,sname,sex,age,sdept FROM student'
+            db.execute(sql)
+            data = db.fetchall()
+            print(data)
+
+            return jsonify(errno='ok', data=data)
+    except Exception as e:
+        print(e)
+        return jsonify(errno="notok", errmsg="用户数据读取失败")
+
+    return jsonify()
+
+
+@app.route("/adstu/in")
+def adstu_in():
+    return jsonify(errno="ok")
+
+
+@app.route("/adstu/de", methods=['post'])
+def adstu_de():
+    json_data = request.json
+    sno = json_data.get("sno")
+    try:
+        with DB() as db:
+            sql = 'DELETE FROM student WHERE sno = "%s" ' % sno
+            db.execute(sql)
+            return jsonify(errno='ok')
+    except Exception as e:
+        return jsonify(errno='notok')
+    return jsonify()
+
+
 @app.route("/grade", methods=["POST", "GET"])
 def grade():
-
     json_data = request.form  # 获取数据
     cno = json_data.get("cno")  # 按课程号查询所有选课学生成绩
     print(cno)
@@ -146,7 +184,20 @@ def grade():
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
-    return render_template("grade.html")
+
+
+@app.route("/adcourse", methods=['POST'])
+def adcourse():
+    try:
+        with DB() as db:
+            sql = 'SELECT * FROM course'
+            db.execute(sql)
+            data = db.fetchall()
+            print(data)
+            return jsonify(errno='ok', data=data)
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok', errmsg="用户数据读取失败")
 
 
 @app.route("/logout")
