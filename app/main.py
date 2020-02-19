@@ -152,7 +152,7 @@ def adstu_in():
     return jsonify(errno="ok")
 
 
-@app.route("/adstu/de", methods=['post'])
+@app.route("/adstu/de", methods=['get', 'post'])
 def adstu_de():
     json_data = request.json
     sno = json_data.get("sno")

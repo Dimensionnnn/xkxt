@@ -24,16 +24,14 @@
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">编辑
-        </el-button>
-        <el-button
-          size="mini"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)">删除
         </el-button>
       </template>
     </el-table-column>
   </el-table>
+
+
 </template>
 
 <script>
@@ -42,7 +40,8 @@
       return {
         data: {},
         d: [],
-        search: ''
+        search: '',
+        formLabelWidth: '120px'
       }
     },
     created() {
@@ -79,19 +78,22 @@
         )
     },
     methods: {
-      handleEdit(index, row) {
-        this.$axios.post("/api/adstu_de", {'sno': this.d[index][0]})
+      handleDelete(index, row) {
+        this.$axios.post('/api/adstu_de',
+          (index, row))
           .then((response) => {
-            if (response.data.errno == 'ok') {
-              this.$message.
-
+            if (response.data.errno == 'ok')
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+            else {
+              this.$message.error('删除失败')
             }
-          }
+          })
         console.log(index, row);
       },
-      handleDelete(index, row) {
-        console.log(index, row);
-      }
+
     },
   }
 </script>

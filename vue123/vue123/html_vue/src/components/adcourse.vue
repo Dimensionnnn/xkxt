@@ -20,14 +20,6 @@
       label="任课教师"
       prop="tname">
     </el-table-column>
-    <!--    <el-table-column-->
-    <!--      align="right">-->
-    <!--      <template slot="header" slot-scope="scope">-->
-    <!--        <el-input-->
-    <!--          v-model="search"-->
-    <!--          size="mini"-->
-    <!--          placeholder="输入关键字搜索"/>-->
-    <!--      </template>-->
     <template slot-scope="scope">
       <el-button
         size="mini"
