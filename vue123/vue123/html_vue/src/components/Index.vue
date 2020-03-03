@@ -43,7 +43,7 @@
        <eeeeee></eeeeee>
     </div>
     <div v-if="Flag === '3'">
-      333333333333333333333333333333
+      <grade></grade>
     </div>
     <div v-if="Flag === '4'">
       <adcourse></adcourse>
@@ -60,6 +60,7 @@
   import eeeeee from './eeeeee.vue'
   import adstu from "./adstu.vue";
   import adcourse from "./adcourse";
+  import grade from './grade.vue';
 
   export default {
     name: 'Index',
@@ -67,7 +68,8 @@
       eeeeee: eeeeee,
       oooooo: oooooo,
       adstu: adstu,
-      adcourse: adcourse
+      adcourse: adcourse,
+      grade: grade
     },
     methods: {
       handleSelect(key, keyPath) {

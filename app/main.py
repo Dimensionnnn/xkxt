@@ -131,25 +131,36 @@ def inputGrade():
 
 @app.route("/adstu", methods=['POST'])
 def adstu():
-    js = []
     try:
         with DB() as db:
             sql = 'SELECT sno,sname,sex,age,sdept FROM student'
             db.execute(sql)
             data = db.fetchall()
             print(data)
-
             return jsonify(errno='ok', data=data)
     except Exception as e:
         print(e)
         return jsonify(errno="notok", errmsg="用户数据读取失败")
 
-    return jsonify()
 
-
-@app.route("/adstu/in")
+@app.route("/adstu/in", methods=['post', 'get'])
 def adstu_in():
-    return jsonify(errno="ok")
+    json_data = request.json
+    print(json_data)
+    sno = json_data.get("sno")
+    sname = json_data.get("sname")
+    sex = json_data.get("sex")
+    age = int(json_data.get("age"))
+    sdept = json_data.get("sdept")
+    try:
+        with DB() as db:
+            sql = 'INSERT INTO student(sno, sname,sex,age,sdept,logn,pswd) VALUES("%s","%s", "%s","%d","%s","%s","111")' % (
+            sno, sname, sex, age, sdept, sno)
+            db.execute(sql)
+            return jsonify(errno='ok')
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok')
 
 
 @app.route("/adstu/de", methods=['get', 'post'])
@@ -158,32 +169,77 @@ def adstu_de():
     sno = json_data.get("sno")
     try:
         with DB() as db:
-            sql = 'DELETE FROM student WHERE sno = "%s" ' % sno
+            sql = 'DELETE FROM student WHERE sno = "%s"' % sno
             db.execute(sql)
             return jsonify(errno='ok')
     except Exception as e:
+        print(e)
         return jsonify(errno='notok')
-    return jsonify()
 
 
-@app.route("/grade", methods=["POST", "GET"])
-def grade():
-    json_data = request.form  # 获取数据
-    cno = json_data.get("cno")  # 按课程号查询所有选课学生成绩
-    print(cno)
+@app.route("/grade/course", methods=["POST", "GET"])
+def grade_course():
     try:
-
         with DB() as db:
-            if cno:
-                sql = 'SELECT student.sname,sc.sno,sc.grade FROM sc,student WHERE sc.sno = student.sno and  sc.cno= "%s"' % cno
-                db.execute(sql)
-                data = db.fetchall()
-                return render_template("grade.html", data=data)
-            else:
-                return render_template("grade.html")
+            sql = 'SELECT cno,cname FROM course'
+            db.execute(sql)
+            data = db.fetchall()
+            print(data)
+            return jsonify(errno='ok', data=data)
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
+
+
+# 根据所选课程筛选选课人和成绩
+@app.route("/grade", methods=["POST", "GET"])
+def grade():
+    json_data = request.json  # 获取数据
+    cno = json_data.get("cno")
+    try:
+        with DB() as db:
+            if cno:
+                sql = 'SELECT sno,grade FROM sc WHERE cno= "%s"' % cno
+                db.execute(sql)
+                data = db.fetchall()
+                print(data)
+                return jsonify(errno="ok", data=data)
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok', errmsg="用户数据读取失败")
+
+
+@app.route("/grade/update", methods=["POST", "GET"])
+def grade_update():
+    json_data = request.json  # 获取数据
+    cno = json_data.get("cno")
+    sno = json_data.get("sno")
+    grade = int(json_data.get("grade"))
+    try:
+        with DB() as db:
+            if cno:
+                sql = 'UPDATE sc SET grade = "%d" WHERE  cno="%s"and sno="%s"' % (grade, cno, sno)
+                db.execute(sql)
+                return jsonify(errno="ok")
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok')
+
+
+@app.route("/grade/de", methods=['get', 'post'])
+def grade_de():
+    json_data = request.json
+    sno = json_data.get("sno")
+    cno = json_data.get("cno")
+    print(sno + cno)
+    try:
+        with DB() as db:
+            sql = 'DELETE FROM sc WHERE sno = "%s" and cno = "%s"' % (sno, cno)
+            db.execute(sql)
+            return jsonify(errno='ok')
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok')
 
 
 @app.route("/adcourse", methods=['POST'])
@@ -198,6 +254,39 @@ def adcourse():
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
+
+
+@app.route("/adcourse/in", methods=['POST'])
+def adcourse_in():
+    json_data = request.json
+    print(json_data)
+    cno = json_data.get("cno")
+    cname = json_data.get("cname")
+    credit = int(json_data.get("credit"))
+    cdept = json_data.get("cdept")
+    tname = json_data.get("tname")
+    try:
+        with DB() as db:
+            sql = 'INSERT INTO course(cno,cname,credit,cdept,tname) VALUES("%s","%s", "%d","%s","%s")' % (
+            cno, cname, credit, cdept, tname)
+            db.execute(sql)
+            return jsonify(errno='ok')
+    except Exception as e:
+        print(e)
+        return jsonify(errno='notok')
+
+
+@app.route("/adcourse/de", methods=['get', 'post'])
+def adcourse_de():
+    json_data = request.json
+    cno = json_data.get("cno")
+    try:
+        with DB() as db:
+            sql = 'DELETE FROM course WHERE cno = "%s" ' % cno
+            db.execute(sql)
+            return jsonify(errno='ok')
+    except Exception as e:
+        return jsonify(errno='notok')
 
 
 @app.route("/logout")
