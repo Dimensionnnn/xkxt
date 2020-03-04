@@ -67,6 +67,17 @@ export default {
                   showClose: true,
                   type: 'success'
                 })
+              } else if (response.data.errno == 'admin') {
+                this.$store.dispatch('userLogin', true)
+                localStorage.setItem('Flag', 'isLogin')
+                localStorage.setItem('User', response.data.sno)
+                localStorage.setItem('UserName', response.data.sname)
+                this.$message.success({
+                  message: '管理员登录成功',
+                  showClose: true,
+                  type: 'success'
+                })
+                this.$router.push({name: 'adindex'})
               } else {
                 this.$message.error({
                   message: '用户名或密码错误',

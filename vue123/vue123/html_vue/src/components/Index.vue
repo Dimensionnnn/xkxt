@@ -17,21 +17,21 @@
             <span slot="title">成绩查询</span>
           </el-menu-item>
        </el-menu-item-group>
-       <el-menu-item-group>
-          <div slot="title" style="font-size:18px;">老师操作</div>
-          <el-menu-item index="3">
-            <i class="el-icon-document"></i>
-            <span slot="title">成绩管理</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">课程管理</span>
-          </el-menu-item>
-          <el-menu-item index="5">
-            <i class="el-icon-setting"></i>
-            <span slot="title">学生管理</span>
-          </el-menu-item>
-       </el-menu-item-group>
+       <!--       <el-menu-item-group>-->
+       <!--          <div slot="title" style="font-size:18px;">老师操作</div>-->
+       <!--          <el-menu-item index="3">-->
+       <!--            <i class="el-icon-document"></i>-->
+       <!--            <span slot="title">成绩管理</span>-->
+       <!--          </el-menu-item>-->
+       <!--          <el-menu-item index="4">-->
+       <!--            <i class="el-icon-setting"></i>-->
+       <!--            <span slot="title">课程管理</span>-->
+       <!--          </el-menu-item>-->
+       <!--          <el-menu-item index="5">-->
+       <!--            <i class="el-icon-setting"></i>-->
+       <!--            <span slot="title">学生管理</span>-->
+       <!--          </el-menu-item>-->
+       <!--       </el-menu-item-group>-->
      </el-menu>
    </el-col>
  </el-row>

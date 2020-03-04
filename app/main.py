@@ -2,39 +2,49 @@ from flask import Flask, jsonify, request, make_response, url_for, redirect, ren
 import datetime
 import pymysql
 
-app = Flask(__name__, static_url_path = "")
+app = Flask(__name__, static_url_path="")
 app.config['SECRET_KEY'] = '123456'
 
-@app.route("/index")
-def index():
-    return render_template("index.html")
 
-@app.route("/")
-def main():
-    return render_template("index.html")
+# @app.route("/index")
+# def index():
+#     return render_template("index.html")
+#
+# @app.route("/")
+# def main():
+#     return render_template("index.html")
+#
+# @app.route("/login")
+# def login():
+#     return render_template("login.html")
+#
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-
-@app.route('/login/in', methods=['GET', 'POST'])    
-def login_in():                                         # 用户输入信息登录
-    json_data = request.json                            # 获取数据
+@app.route('/login/in', methods=['GET', 'POST'])
+def login_in():  # 用户输入信息登录
+    json_data = request.json  # 获取数据
     logn = json_data.get("logn")
     pswd = json_data.get("pswd")
     try:
         with DB() as db:
             sql = 'SELECT sno, sname, pswd FROM student WHERE logn = "%s"' % logn
             db.execute(sql)
-        data = db.fetchone()
-        if data:
-            if pswd == data[2]:
-                return jsonify(errno='ok', errmsg="登录成功", sno=data[0], sname=data[1])
+            data = db.fetchone()
+            print(data)
+            if data:
+                if pswd == data[2]:
+                    return jsonify(errno='ok', errmsg="登录成功", sno=data[0], sname=data[1])
+                else:
+                    return jsonify(errno='notok', errmsg="用户名或密码错误")
             else:
-                return jsonify(errno='notok', errmsg="用户名或密码错误")
-        else:
-            return jsonify(errno='notok', errmsg="用户名或密码错误")
+                sql = 'SELECT tno, tname, pswd FROM teacher WHERE logn = "%s"' % logn
+                db.execute(sql)
+                x = db.fetchone()
+                print(x)
+                if x:
+                    if pswd == x[2]:
+                        return jsonify(errno='admin', errmsg="登录成功", sno=x[0], sname=x[1])
+                    else:
+                        return jsonify(errno='notok', errmsg="用户名或密码错误")
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
@@ -57,7 +67,7 @@ def option():
             for i in sc:
                 chosed.append(int(i[0])-1)
             res = chose1(len(data), chosed)
-            return jsonify(errno='ok', errmsg="获取成功", data=data, cho = res)
+            return jsonify(errno='ok', errmsg="获取成功", data=data, cho=res)
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
@@ -78,24 +88,26 @@ def optioncourse():
         with DB() as db:
             if direction == 'left':
                 for i in keys:
-                    sql = 'INSERT INTO sc(sno, cno) VALUES("%s", "%02d")'%(sno, i+1)
+                    sql = 'INSERT INTO sc(sno, cno) VALUES("%s", "%02d")' % (sno, i + 1)
                     db.execute(sql)
             else:
                 for i in keys:
-                    sql = 'DELETE FROM sc WHERE sno = "%s" and cno = "%02d"'%(sno, i+1)
+                    sql = 'DELETE FROM sc WHERE sno = "%s" and cno = "%02d"' % (sno, i + 1)
                     db.execute(sql)
             return jsonify(errno='ok', errmsg="选课成功")
     except Exception as e:
         print(e)
         return jsonify(errno='notok', errmsg="用户数据读取失败")
 
-@app.route("/mycourse")
-def mycourse():
-    return render_template("mycourse.html")
 
-@app.route("/add")
-def add():
-    return render_template("add.html")
+#
+# @app.route("/mycourse")
+# def mycourse():
+#     return render_template("mycourse.html")
+#
+# @app.route("/add")
+# def add():
+#     return render_template("add.html")
 
 
 @app.route("/query", methods=['POST'])
@@ -124,10 +136,10 @@ def query():
         return jsonify(errno='notok', errmsg="用户数据读取失败")
 
 
-@app.route("/inputGrade")
-def inputGrade():
-    return render_template("inputGrade.html")
-
+# @app.route("/inputGrade")
+# def inputGrade():
+#     return render_template("inputGrade.html")
+#
 
 @app.route("/adstu", methods=['POST'])
 def adstu():

@@ -1,15 +1,20 @@
 <template>
   <div id="app">
-    <div id="login" v-if="Flag"><login></login></div>
+    <div id="login" v-if="Flag">
+      <login></login>
+    </div>
     <div id="other" v-else>
-      <div style="width:100%; height:50px;"><el-button id="logout" :plain="true" @click="logout">登出</el-button></div>
-      <index></index>
+      <div style="width:100%; height:50px;">
+        <el-button id="logout" :plain="true" @click="logout">登出</el-button>
       </div>
+      <index></index>
+    </div>
   </div>
 </template>
 <script>
 import index from './components/index.vue'
 import login from './components/loginform.vue'
+import adindex from './components/adindex.vue'
 let moment = require('moment')
 export default {
   name: 'App',
@@ -20,7 +25,8 @@ export default {
   },
   components: {
     index: index,
-    login: login
+    login: login,
+    adindex: adindex
   },
   computed: {
     listenFlag () {

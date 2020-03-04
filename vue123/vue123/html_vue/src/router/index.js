@@ -12,7 +12,8 @@ const router = new Router({
       path: '/',
       name: 'App',
       component: App
-    }
+    },
+
   ]
 })
 
@@ -45,7 +46,9 @@ router.beforeEach((to, from, next) => {
         message: '请先登录',
         showClose: true
       })
-    // 用户进入无需登录的界面，则跳转继续
+      // 用户进入无需登录的界面，则跳转继续
+    } else if (to.meta.isAdmin) {
+      next()
     } else {
       next()
     }
