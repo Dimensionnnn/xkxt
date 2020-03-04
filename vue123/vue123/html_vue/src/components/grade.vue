@@ -9,25 +9,25 @@
         :value="item.value">
       </el-option>
     </el-select>
-    <el-button type="text" @click="dialogFormVisible = true">新增选课</el-button>
-    <el-dialog title="选课信息" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="学生学号" :label-width="formLabelWidth">
-          <el-input v-model="form.sno" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="课号" :label-width="formLabelWidth">
-          <el-input v-model="form.cno" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="成绩" :label-width="formLabelWidth">
-          <el-input v-model.number="form.grade" autocomplete="off"></el-input>
-        </el-form-item>
+    <!--    <el-button type="text" @click="dialogFormVisible = true">新增选课</el-button>-->
+    <!--    <el-dialog title="选课信息" :visible.sync="dialogFormVisible">-->
+    <!--      <el-form :model="form">-->
+    <!--        <el-form-item label="学生学号" :label-width="formLabelWidth">-->
+    <!--          <el-input v-model="form.sno" autocomplete="off"></el-input>-->
+    <!--        </el-form-item>-->
+    <!--        <el-form-item label="课号" :label-width="formLabelWidth">-->
+    <!--          <el-input v-model="form.cno" autocomplete="off"></el-input>-->
+    <!--        </el-form-item>-->
+    <!--        <el-form-item label="成绩" :label-width="formLabelWidth">-->
+    <!--          <el-input v-model.number="form.grade" autocomplete="off"></el-input>-->
+    <!--        </el-form-item>-->
 
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="sendData">确 定</el-button>
-      </div>
-    </el-dialog>
+    <!--      </el-form>-->
+    <!--      <div slot="footer" class="dialog-footer">-->
+    <!--        <el-button @click="dialogFormVisible = false">取 消</el-button>-->
+    <!--        <el-button type="primary" @click="sendData">确 定</el-button>-->
+    <!--      </div>-->
+    <!--    </el-dialog>-->
 
     <el-table :data="d" style="width: 100%" @row-click="call">
       <el-table-column label="更改">
@@ -68,6 +68,14 @@
           cno: '',
           cname: ''
         }],
+        dialogTableVisible: false,
+        dialogFormVisible: false,
+        form: {
+          sno: '',
+          cno: '',
+          grade: '',
+        },
+        formLabelWidth: '120px',
         d: [],
         len: 0,
         value: '',
@@ -99,9 +107,7 @@
         })
     },
     methods: {
-      sendData() {
 
-      },
       open() {
         this.$prompt('输入成绩', '提示', {
           confirmButtonText: '确定',

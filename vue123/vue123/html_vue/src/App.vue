@@ -6,8 +6,14 @@
     <div id="other" v-else>
       <div style="width:100%; height:50px;">
         <el-button id="logout" :plain="true" @click="logout">登出</el-button>
+
       </div>
-      <index></index>
+      <div v-if="isAdmin">
+        <adindex></adindex>
+      </div>
+      <div v-else>
+        <index></index>
+      </div>
     </div>
   </div>
 </template>
@@ -20,6 +26,7 @@ export default {
   name: 'App',
   data () {
     return {
+      isAdmin: false,
       Flag: true,
     }
   },
@@ -29,10 +36,13 @@ export default {
     adindex: adindex
   },
   computed: {
-    listenFlag () {
+    listenFlag() {
       return this.$store.state.isLogin
     },
-    notices () {
+    listenAdmin() {
+      return this.$store.state.isAdmin
+    },
+    notices() {
       return this.gridData.length
     }
   },
@@ -63,6 +73,10 @@ export default {
   mounted () {
     this.user = localStorage.getItem('UserName')
     let islogin = this.$store.state.isLogin
+    let isAdmin = this.$store.state.isAdmin
+    // if(isAdmin === true){
+    //
+    // }
     if (islogin === true) {
       let User = localStorage.getItem('UserName')
       this.Flag = false

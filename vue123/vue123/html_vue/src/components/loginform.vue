@@ -70,6 +70,7 @@ export default {
               } else if (response.data.errno == 'admin') {
                 this.$store.dispatch('userLogin', true)
                 localStorage.setItem('Flag', 'isLogin')
+                localStorage.setItem('isAdmin', true)
                 localStorage.setItem('User', response.data.sno)
                 localStorage.setItem('UserName', response.data.sname)
                 this.$message.success({
@@ -77,7 +78,6 @@ export default {
                   showClose: true,
                   type: 'success'
                 })
-                this.$router.push({name: 'adindex'})
               } else {
                 this.$message.error({
                   message: '用户名或密码错误',

@@ -13,7 +13,11 @@ const router = new Router({
       name: 'App',
       component: App
     },
-
+    {
+      path: '/adindex',
+      component: adindex,
+      name: 'adindex'
+    }
   ]
 })
 
@@ -47,8 +51,6 @@ router.beforeEach((to, from, next) => {
         showClose: true
       })
       // 用户进入无需登录的界面，则跳转继续
-    } else if (to.meta.isAdmin) {
-      next()
     } else {
       next()
     }
