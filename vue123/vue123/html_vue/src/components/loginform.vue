@@ -73,11 +73,13 @@ export default {
                 localStorage.setItem('isAdmin', true)
                 localStorage.setItem('User', response.data.sno)
                 localStorage.setItem('UserName', response.data.sname)
+                console.log(localStorage.getItem('isAdmin'))
                 this.$message.success({
                   message: '管理员登录成功',
                   showClose: true,
                   type: 'success'
                 })
+                this.$router.push("/adindex")
               } else {
                 this.$message.error({
                   message: '用户名或密码错误',

@@ -6,9 +6,8 @@
     <div id="other" v-else>
       <div style="width:100%; height:50px;">
         <el-button id="logout" :plain="true" @click="logout">登出</el-button>
-
       </div>
-      <div v-if="isAdmin">
+      <div v-if="isAdmin===true">
         <adindex></adindex>
       </div>
       <div v-else>

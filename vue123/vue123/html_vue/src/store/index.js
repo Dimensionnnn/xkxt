@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   // 设置属性
   state: {
+    isAdmin: false,
     isLogin: false,
     aim_user: '',
     user: {}
