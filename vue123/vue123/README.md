@@ -2,7 +2,7 @@
 
 #### 介绍
 <<<<<<< HEAD
-使用vue.js框架，lement-ui组件库的vue前端项目
+使用vue.js框架，element-ui组件库的vue前端项目
 =======
 前端仓库
 1.首页（任务广场）L
