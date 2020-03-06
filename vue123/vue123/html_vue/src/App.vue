@@ -7,7 +7,7 @@
       <div style="width:100%; height:50px;">
         <el-button id="logout" :plain="true" @click="logout">登出</el-button>
       </div>
-      <div v-if="isAdmin===true">
+      <div v-if="isAdmin">
         <adindex></adindex>
       </div>
       <div v-else>
@@ -67,7 +67,14 @@ export default {
       } else {
         this.Flag = true
       }
-    }
+    },
+	listenAdmin: function (thenew, theold) {
+	  if (theold === false && thenew === true) {
+	    this.isAdmin = true
+	  } else {
+	    this.isAdmin = false
+	  }
+	}
   },
   mounted () {
     this.user = localStorage.getItem('UserName')
@@ -79,9 +86,13 @@ export default {
     if (islogin === true) {
       let User = localStorage.getItem('UserName')
       this.Flag = false
+	  if (isAdmin === true) {
+		  this.isAdmin = true
+	  }
     } else {
       this.Flag = true
     }
+	
   }
 }
 </script>

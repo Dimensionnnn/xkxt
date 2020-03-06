@@ -60,6 +60,7 @@ export default {
                 // 设置Vuex登录标志为true，默认userLogin为false
                 this.$store.dispatch('userLogin', true)
                 localStorage.setItem('Flag', 'isLogin')
+								localStorage.setItem('isAdmin', false)
                 localStorage.setItem('User', response.data.sno)
                 localStorage.setItem('UserName', response.data.sname)
                 this.$message.success({
@@ -69,6 +70,7 @@ export default {
                 })
               } else if (response.data.errno == 'admin') {
                 this.$store.dispatch('userLogin', true)
+				this.$store.dispatch('userAdmin', true)
                 localStorage.setItem('Flag', 'isLogin')
                 localStorage.setItem('isAdmin', true)
                 localStorage.setItem('User', response.data.sno)

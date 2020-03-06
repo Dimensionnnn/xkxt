@@ -15,7 +15,8 @@ const store = new Vuex.Store({
   // 获取属性的状态
   getters: {
     // 获取登录状态
-    isLogin: state => state.isLogin
+    isLogin: state => state.isLogin,
+	isAdmin: state => state.isAdmin
   },
 
   // 设置属性状态
@@ -24,6 +25,9 @@ const store = new Vuex.Store({
     userStatus (state, flag) {
       state.isLogin = flag
     },
+	userAs (state, flag) {
+	  state.isAdmin = flag
+	},
     logout (state) {
       localStorage.setItem('Flag', 'not')
       state.isLogin = false
@@ -39,6 +43,9 @@ const store = new Vuex.Store({
     userLogin ({commit}, flag) {
       commit('userStatus', flag)
     },
+	userAdmin ({commit}, flag) {
+	  commit('userAs', flag)
+	},
     userLogout ({commit}) {
       commit('logout')
     },
