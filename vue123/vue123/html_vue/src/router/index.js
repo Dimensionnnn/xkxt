@@ -29,10 +29,14 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // 获取用户登录成功后储存的登录标志
   let getFlag = localStorage.getItem('Flag')
+  let getAdmin = localStorage.getItem('isAdmin')
   // 如果登录标志存在且为isLogin，即用户已登录
   if (getFlag === 'isLogin') {
     // 设置vuex登录状态为已登录
     store.state.isLogin = true
+	if (getAdmin) {
+		store.state.isAdmin = true
+	}
     // if(localStorage.getItem('isAdmin')===true)
     // {
     //   next('/adindex')
