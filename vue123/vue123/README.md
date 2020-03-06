@@ -1,7 +1,6 @@
 # html_vue
 
-#### 介绍
-<<<<<<< HEAD
+#### 介绍 HEAD
 使用vue.js框架，element-ui组件库的vue前端项目
 =======
 前端仓库
