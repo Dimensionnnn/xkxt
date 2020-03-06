@@ -68,6 +68,7 @@ export default {
                   showClose: true,
                   type: 'success'
                 })
+				this.$router.push("/index")
               } else if (response.data.errno == 'admin') {
                 this.$store.dispatch('userLogin', true)
 				this.$store.dispatch('userAdmin', true)

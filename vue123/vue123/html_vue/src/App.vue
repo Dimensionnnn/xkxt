@@ -7,12 +7,7 @@
       <div style="width:100%; height:50px;">
         <el-button id="logout" :plain="true" @click="logout">登出</el-button>
       </div>
-      <div v-if="isAdmin">
-        <adindex></adindex>
-      </div>
-      <div v-else>
-        <index></index>
-      </div>
+	  <router-view></router-view>
     </div>
   </div>
 </template>

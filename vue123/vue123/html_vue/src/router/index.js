@@ -4,6 +4,7 @@ import store from '../store'
 import App from '../App.vue'
 import {Message} from 'element-ui'
 import adindex from '../components/adindex'
+import index from '../components/index'
 Vue.use(Router)
 
 const router = new Router({
@@ -17,7 +18,12 @@ const router = new Router({
       path: '/adindex',
       component: adindex,
       name: 'adindex'
-    }
+    },
+	{
+	  path: '/index',
+	  component: index,
+	  name: 'index'
+	}
   ]
 })
 router.beforeEach((to, from, next) => {
